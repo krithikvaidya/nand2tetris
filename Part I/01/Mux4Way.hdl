@@ -1,0 +1,18 @@
+CHIP Mux4Way {
+    IN a, b, c, d, sel[2];
+    OUT out;
+
+    PARTS:
+    Not(in = sel[0], out = nots0);
+    Not(in = sel[1], out = nots1);
+
+    And3Way(a = a, b = nots1, c = nots0, out = out1);
+    And3Way(a = b, b = nots1, c = s0, out = out2);
+    And3Way(a = c, b = s1, c = nots0, out = out3);
+    And3Way(a = d, b = s1, c = s0, out = out4);
+
+    Or(a = out1, b = out2, out = out5);
+    Or(a = out3, b = out4, out = out6);
+
+    Or(a = out5, b = out6, out = out);
+}
